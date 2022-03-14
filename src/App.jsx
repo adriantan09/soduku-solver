@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import Row from './Row.jsx'
+import { solve } from './solve.js';
+import { testBoard, unsolvableBoard } from './data.js';
 
 function App() {
   const [numbers, setNumbers] = useState(
@@ -8,10 +10,8 @@ function App() {
   )
 
   const handleChange = (e, row, col) => {
-    console.log('change')
     numbers[row][col] = e.target.value
     setNumbers(numbers)
-    console.log(numbers)
   }
 
   const handleReset = () => {
@@ -19,10 +19,30 @@ function App() {
     document.querySelectorAll('input').forEach(i => i.value = '')
   }
 
-  const solve = () => {
-    console.log('solving')
-    console.log(numbers)
+  const handleInput = (numbers) => {
+    // convert input to integer
+    numbers = numbers.map(row => row.map(n => {
+      return n !== '' ? parseInt(n, 10) : 0
+    }))
+
+    let temp = solve(numbers)
+    temp = temp.map(row => row.map(String))
+    setNumbers(temp)
+    console.log('SOLVING')
+    console.table(numbers)
+    // solve(numbers)
   }
+
+  useEffect(() => {
+    let temp = testBoard.map(function(arr) {
+      return arr.slice();
+    });
+
+    temp = testBoard.map(row => row.map(String))
+    console.log('BEFORE')
+    console.table(temp)
+    setNumbers(temp)
+  }, [])
 
   return (
     <Container>
@@ -33,12 +53,13 @@ function App() {
           key={i}
           rowIndex={i}
           setNumbers={handleChange}
+          row={numbers[i]}
         /> 
       ))}
 
       <div>
         <Button onClick={handleReset}>Reset</Button>
-        <Button onClick={solve}>Solve</Button>
+        <Button onClick={() => handleInput(numbers)}>Solve</Button>
       </div>
 
       <a 
