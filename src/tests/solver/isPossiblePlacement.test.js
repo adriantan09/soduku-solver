@@ -1,5 +1,5 @@
-import { testBoard } from '../data.js'
-import { exportedForTesting } from '../solve.js'
+import { testBoard } from '../../data.js'
+import { exportedForTesting } from '../../solve.js'
 const { isPossiblePlacement } = exportedForTesting
 
 describe('test invalid placements in the sudoku board', () => {

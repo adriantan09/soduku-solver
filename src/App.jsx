@@ -1,48 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react'
 import styled from 'styled-components'
 import Row from './Row.jsx'
-import { solve } from './solve.js';
-import { testBoard, unsolvableBoard } from './data.js';
+import { solve } from './solve.js'
+import { isValidBoard } from './validator.js'
+import { stringToInt } from './helpers.js'
 
-function App() {
+const App = () => {
+  const [isValid, setIsValid] = useState(true)
   const [numbers, setNumbers] = useState(
     Array(9).fill().map(()=>Array(9).fill(''))
   )
+    
+  const handleChange = (e, rowIndex, colIndex) => {
+    let copy = numbers.map(arr => { return arr.slice() })
 
-  const handleChange = (e, row, col) => {
-    numbers[row][col] = e.target.value
-    setNumbers(numbers)
+    copy[rowIndex][colIndex] = e.target.value
+    setNumbers(copy)
+
+    copy = stringToInt(copy)
+    setIsValid(isValidBoard(copy))
   }
 
   const handleReset = () => {
     setNumbers(Array(9).fill().map(()=>Array(9).fill('')))
-    document.querySelectorAll('input').forEach(i => i.value = '')
   }
 
   const handleInput = (numbers) => {
-    // convert input to integer
-    numbers = numbers.map(row => row.map(n => {
-      return n !== '' ? parseInt(n, 10) : 0
-    }))
+    numbers = stringToInt(numbers)
 
-    let temp = solve(numbers)
-    temp = temp.map(row => row.map(String))
-    setNumbers(temp)
-    console.log('SOLVING')
-    console.table(numbers)
-    // solve(numbers)
+    let solution = solve(numbers)
+    solution = solution.map(row => row.map(String))
+    setNumbers(solution)
   }
-
-  useEffect(() => {
-    let temp = testBoard.map(function(arr) {
-      return arr.slice();
-    });
-
-    temp = testBoard.map(row => row.map(String))
-    console.log('BEFORE')
-    console.table(temp)
-    setNumbers(temp)
-  }, [])
 
   return (
     <Container>
@@ -53,13 +42,18 @@ function App() {
           key={i}
           rowIndex={i}
           setNumbers={handleChange}
-          row={numbers[i]}
+          numbers={numbers[i]}
         /> 
       ))}
 
       <div>
         <Button onClick={handleReset}>Reset</Button>
-        <Button onClick={() => handleInput(numbers)}>Solve</Button>
+        <Button 
+          onClick={() => handleInput(numbers)}
+          disabled={!isValid}
+        >
+          Solve
+        </Button>
       </div>
 
       <a 
@@ -102,4 +96,9 @@ const Button = styled.button`
   cursor: pointer;
   color: #000;
   background: #fff;
+  border-radius: 5px;
+
+  :disabled {
+    opacity: 0.6;
+  }
 `

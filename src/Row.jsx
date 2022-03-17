@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Row = ({ rowIndex, setNumbers, row }) => {
+const Row = ({ rowIndex, setNumbers, numbers }) => {
 
   const handleInput = (e) => {
     // numbers only
-    const re = /^[0-9]{1}$/g;
+    const re = /^[1-9]{1}$/g;
     if (!re.test(e.key)) e.preventDefault();
   }
 
@@ -20,7 +20,7 @@ const Row = ({ rowIndex, setNumbers, row }) => {
               autoComplete='off'
               rowIndex={rowIndex}
               colIndex={colIndex}
-              value={row[colIndex]}
+              value={numbers[colIndex]}
             />
         ))}
     </div>

@@ -1,5 +1,5 @@
-import { testBoard, unsolvableBoard } from '../data.js'
-import { exportedForTesting } from '../solve.js'
+import { testBoard, unsolvableBoard } from '../../data.js'
+import { exportedForTesting } from '../../solve.js'
 const { isSolvable } = exportedForTesting
 
 describe('test isSolvable', () => {

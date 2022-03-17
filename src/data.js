@@ -26,17 +26,17 @@ const solutionBoard = [
     [3, 5, 7,  6, 1, 9,  8, 4, 2]
 ]
 
-const invalidSolutionBoard = [
+const invalidBoard = [
     [1, 8, 3,  4, 9, 7,  6, 1, 5],
     [7, 1, 5,  3, 6, 2,  4, 9, 8],
     [4, 6, 9,  1, 8, 5,  2, 7, 3],
 
     [5, 4, 2,  7, 3, 6,  1, 8, 9],
-    [8, 7, 1,  9, 2, 4,  3, 5, 6],
+    [0, 7, 1,  9, 2, 4,  3, 5, 6],
     [9, 3, 6,  8, 5, 1,  7, 2, 4],
 
     [1, 2, 8,  5, 4, 3,  9, 6, 7],
-    [6, 9, 4,  2, 7, 8,  5, 3, 1],
+    [0, 9, 4,  2, 6, 8,  5, 3, 1],
     [3, 5, 7,  6, 1, 9,  8, 4, 2]
 ]
 
@@ -54,4 +54,4 @@ const unsolvableBoard = [
     [7, 9, 1,  0, 5, 0,  6, 0, 8],
 ]
 
-export { testBoard, solutionBoard, unsolvableBoard, invalidSolutionBoard }
+export { testBoard, solutionBoard, unsolvableBoard, invalidBoard }
