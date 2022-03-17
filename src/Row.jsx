@@ -30,12 +30,11 @@ const Row = ({ rowIndex, setNumbers, numbers }) => {
 export default Row;
 
 const Box = styled.input`
-  width: 40px;
-  height: 40px;
-  font-size: 17pt;
   text-align: center;
   font-weight: bold;
-  
+  width: 25px;
+  height: 25px;
+
   margin-right: ${(props) => (
     [2,5].includes(props.colIndex) && ('4px;')
   )};
@@ -44,4 +43,9 @@ const Box = styled.input`
     [2,5].includes(props.rowIndex) && ('4px;')
   )};
 
+  @media screen and (min-width: 450px) {
+    width: 40px;
+    height: 40px;
+    font-size: 17pt;
+  }
 `
